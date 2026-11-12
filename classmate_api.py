@@ -1,6 +1,6 @@
 import requests
 
-url = "https://labrador-clark-vincent.onrender.com/student"
+url = "https://jezalyn-indic.onrender.com/student"
 
 try:
     response = requests.get(url, timeout=30)

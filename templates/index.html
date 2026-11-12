@@ -2,395 +2,518 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Student API Interface</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student API Interface</title>
 
-<style>
-* { box-sizing: border-box; }
+    <style>
+        * { box-sizing: border-box; }
 
-body {
-    margin: 0;
-    min-height: 100vh;
-    padding: 30px 15px;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #4a0028, #880e4f, #c2185b, #f06292);
-    background-size: 300% 300%;
-    animation: gradientMove 10s ease infinite;
-}
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 30px 15px;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg,#4a0028,#880e4f,#c2185b,#f06292);
+            background-size: 300% 300%;
+            animation: gradientMove 10s ease infinite;
+        }
 
-@keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-.container {
-    max-width: 1100px;
-    width: 100%;
-    margin: auto;
-    padding: 35px;
-    background: #fff5fa;
-    border: 2px solid #f8bbd0;
-    border-radius: 20px;
-    box-shadow: 0 15px 40px #35001e66;
-}
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            margin: auto;
+            padding: 35px;
+            background: #fff5fa;
+            border: 2px solid #f8bbd0;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px #35001e66;
+        }
 
-header { text-align: center; }
-.icon { font-size: 55px; }
+        header { text-align: center; }
+        .icon { font-size: 55px; }
+        h1, h2, h3 { color: #880e4f; }
 
-h1, h2, h3 { color: #880e4f; }
+        p {
+            color: #795064;
+            line-height: 1.6;
+        }
 
-p { color: #795064; line-height: 1.6; }
+        button {
+            padding: 13px 18px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(90deg,#880e4f,#e91e63);
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .2s;
+        }
 
-button {
-    padding: 13px 18px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 10px;
-    background: linear-gradient(90deg, #880e4f, #e91e63);
-    color: white;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: .2s;
-}
+        button:hover {
+            background: #5c0033;
+            transform: translateY(-2px);
+        }
 
-button:hover {
-    background: linear-gradient(90deg, #5c0033, #ad1457);
-    transform: translateY(-2px);
-}
+        button:disabled {
+            opacity: .6;
+            cursor: wait;
+            transform: none;
+        }
 
-button:disabled { opacity: .6; cursor: wait; }
-.full { width: 100%; }
+        .full { width: 100%; }
 
-input, select {
-    width: 100%;
-    padding: 13px;
-    margin: 8px 0 12px;
-    border: 1px solid #d48aaa;
-    border-radius: 8px;
-    font-size: 15px;
-    background: white;
-}
+        input, select {
+            width: 100%;
+            padding: 13px;
+            margin: 8px 0 12px;
+            border: 1px solid #d48aaa;
+            border-radius: 8px;
+            font-size: 15px;
+            background: white;
+        }
 
-hr {
-    margin: 35px 0;
-    border: none;
-    border-top: 2px solid #f8bbd0;
-}
+        label {
+            display: block;
+            color: #880e4f;
+            font-weight: bold;
+        }
 
-.card {
-    padding: 15px;
-    margin: 10px 0;
-    background: #fce4ec;
-    border-left: 5px solid #ad1457;
-    border-radius: 8px;
-    color: #4a0028;
-    overflow-wrap: anywhere;
-}
+        hr {
+            margin: 35px 0;
+            border: none;
+            border-top: 2px solid #f8bbd0;
+        }
 
-.card strong { color: #880e4f; }
+        .card {
+            padding: 15px;
+            margin: 10px 0;
+            background: #fce4ec;
+            border-left: 5px solid #ad1457;
+            border-radius: 8px;
+            color: #4a0028;
+            overflow-wrap: anywhere;
+        }
 
-.message {
-    padding: 15px;
-    text-align: center;
-    color: #795064;
-}
+        .card strong { color: #880e4f; }
 
-.error {
-    padding: 14px;
-    background: #ffebee;
-    color: #b71c1c;
-    border-radius: 8px;
-}
+        .form-box {
+            padding: 25px;
+            margin-bottom: 30px;
+            background: white;
+            border: 1px solid #f8bbd0;
+            border-radius: 15px;
+        }
 
-.form-box {
-    padding: 25px;
-    margin-bottom: 30px;
-    background: white;
-    border: 1px solid #f8bbd0;
-    border-radius: 15px;
-}
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2,minmax(0,1fr));
+            gap: 10px 16px;
+        }
 
-.form-box h2 { margin-top: 0; }
+        .heading-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
 
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px 16px;
-}
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 10px;
+            background: white;
+            margin-top: 15px;
+        }
 
-label {
-    display: block;
-    color: #880e4f;
-    font-weight: bold;
-}
+        table {
+            width: 100%;
+            min-width: 720px;
+            border-collapse: collapse;
+        }
 
-.heading-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-}
+        thead {
+            background: #880e4f;
+            color: white;
+        }
 
-.heading-row h2 { margin: 0; }
+        th, td {
+            padding: 13px 10px;
+            text-align: left;
+            border-bottom: 1px solid #f8bbd0;
+        }
 
-.table-wrapper {
-    width: 100%;
-    overflow-x: auto;
-    border-radius: 10px;
-    background: white;
-    margin-top: 15px;
-}
+        tbody tr:hover { background: #fff0f6; }
+        .actions { white-space: nowrap; }
 
-table {
-    width: 100%;
-    min-width: 720px;
-    border-collapse: collapse;
-}
+        .actions button {
+            margin: 3px;
+            padding: 10px;
+        }
 
-thead { background: #880e4f; color: white; }
+        .delete { background: #c62828; }
+        .cancel { background: #777; }
 
-th, td {
-    padding: 13px 10px;
-    text-align: left;
-    border-bottom: 1px solid #f8bbd0;
-}
+        .message, .empty {
+            padding: 20px;
+            text-align: center;
+            color: #795064;
+        }
 
-tbody tr:hover { background: #fff0f6; }
+        .error {
+            padding: 14px;
+            background: #ffebee;
+            color: #b71c1c;
+            border-radius: 8px;
+            overflow-wrap: anywhere;
+        }
 
-.actions { white-space: nowrap; }
+        .status {
+            display: none;
+            padding: 13px;
+            margin-top: 12px;
+            background: #fce4ec;
+            color: #880e4f;
+            border-radius: 8px;
+        }
 
-.actions button {
-    padding: 9px 12px;
-    margin-right: 4px;
-}
+        .status.error {
+            background: #ffebee;
+            color: #b71c1c;
+        }
 
-.delete { background: #c62828; }
-.cancel { background: #777; }
+        .details-card {
+            margin-top: 25px;
+            padding: 25px;
+            background: #fff5fa;
+            border: 1px solid #f8bbd0;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px #880e4f20;
+            animation: appear .35s ease;
+        }
 
-.status {
-    display: none;
-    padding: 13px;
-    margin-top: 12px;
-    background: #fce4ec;
-    color: #880e4f;
-    border-radius: 8px;
-    overflow-wrap: anywhere;
-}
+        @keyframes appear {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-.status.error { background: #ffebee; color: #b71c1c; }
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2,minmax(0,1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
 
-.empty {
-    padding: 22px;
-    text-align: center;
-    color: #795064;
-}
+        .detail-item {
+            padding: 16px;
+            background: #fce4ec;
+            border-left: 5px solid #ad1457;
+            border-radius: 8px;
+            overflow-wrap: anywhere;
+        }
 
-pre {
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
-    background: #fff0f6;
-    padding: 15px;
-    border-radius: 8px;
-}
+        .detail-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #880e4f;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
 
-footer {
-    text-align: center;
-    margin-top: 30px;
-    color: #795064;
-    font-size: 12px;
-}
+        .detail-value {
+            color: #4a0028;
+            font-size: 16px;
+            font-weight: bold;
+        }
 
-@media (max-width: 600px) {
-    .container { padding: 20px; }
-    .form-box { padding: 15px; }
-    .form-grid { grid-template-columns: 1fr; }
-    .heading-row {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-    .heading-row button { width: 100%; }
-}
-</style>
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #795064;
+            font-size: 12px;
+        }
+
+        [hidden] { display: none !important; }
+
+        @media(max-width:600px) {
+            .container { padding: 20px; }
+            .form-box { padding: 15px; }
+            .form-grid, .details-grid { grid-template-columns: 1fr; }
+
+            .heading-row {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .heading-row button { width: 100%; }
+        }
+    </style>
 </head>
 
 <body>
 <main class="container">
 
-<header>
-    <div class="icon">🎓</div>
-    <h1>Student API Interface</h1>
-    <p>Retrieve student information from your Flask API.</p>
-</header>
+    <header>
+        <div class="icon">🎓</div>
+        <h1>Student API Interface</h1>
+        <p>Retrieve and manage student information using Flask API and SQLite.</p>
+    </header>
 
-<section>
-    <button class="full" id="loadButton" onclick="loadStudent()">
-        Load Student Information
-    </button>
-    <div id="studentResult" aria-live="polite">
-        <p class="message">Click the button to load student information.</p>
-    </div>
-</section>
+    <hr>
 
-<hr>
+    <!-- STUDENT INFORMATION -->
+    <section>
+        <h2>Student Information</h2>
 
-<section>
-    <h2>My Skills</h2>
-    <button class="full" id="skillsButton" onclick="loadSkills()">
-        Load My Skills
-    </button>
-    <div id="skillsResult"></div>
-</section>
-
-<hr>
-
-<section>
-    <h2>Say Hello</h2>
-    <input id="nameInput" placeholder="Enter your name">
-    <button class="full" id="helloButton" onclick="sayHello()">
-        Send Greeting
-    </button>
-    <div id="helloResult"></div>
-</section>
-
-<hr>
-
-<!-- YOUR OWN DATABASE -->
-<section>
-    <div class="form-box">
-        <h2 id="formTitle">Add New Student</h2>
-
-        <form id="studentForm">
-            <div class="form-grid">
-                <div>
-                    <label for="sid">Student ID</label>
-                    <input id="sid" required placeholder="e.g. 24-00300">
-                </div>
-
-                <div>
-                    <label for="sname">Full Name</label>
-                    <input id="sname" required placeholder="Full name">
-                </div>
-
-                <div>
-                    <label for="program">Program</label>
-                    <input id="program" required placeholder="e.g. BSIT">
-                </div>
-
-                <div>
-                    <label for="year">Year Level</label>
-                    <select id="year" required>
-                        <option value="">Select year</option>
-                        <option value="1">1st Year</option>
-                        <option value="2">2nd Year</option>
-                        <option value="3">3rd Year</option>
-                        <option value="4">4th Year</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label for="section">Section</label>
-                    <input id="section" required placeholder="e.g. B">
-                </div>
-            </div>
-
-            <button id="submitButton" type="submit">Add Student</button>
-            <button id="cancelButton" class="cancel"
-                    type="button" hidden>Cancel Edit</button>
-        </form>
-
-        <div id="status" class="status" role="status"></div>
-    </div>
-
-    <div class="heading-row">
-        <h2>Students from Database</h2>
-        <button id="refreshButton" onclick="loadStudents()">
-            Load Students
+        <button class="full" id="loadButton" onclick="loadStudent()">
+            Load Student Information
         </button>
-    </div>
 
-    <p>View and manage your own student records stored in SQLite.</p>
+        <div id="studentResult" aria-live="polite">
+            <p class="message">Click the button to load student information.</p>
+        </div>
+    </section>
 
-    <div class="table-wrapper">
-        <table>
-            <thead>
-                <tr>
-                    <th>Database ID</th>
-                    <th>Student ID</th>
-                    <th>Name</th>
-                    <th>Program</th>
-                    <th>Year</th>
-                    <th>Section</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="studentList">
-                <tr><td colspan="7" class="empty">Loading records...</td></tr>
-            </tbody>
-        </table>
-    </div>
-</section>
+    <hr>
 
-<hr>
+    <!-- SKILLS -->
+    <section>
+        <h2>My Skills</h2>
 
-<!-- CLASSMATE'S READ-ONLY DATABASE -->
-<section id="classmateSection">
-    <h2>Classmate's Records</h2>
-    <p>
-        Enter your classmate's deployed HTTPS API URL to retrieve
-        their student records. These records are read-only.
-    </p>
+        <button class="full" id="skillsButton" onclick="loadSkills()">
+            Load My Skills
+        </button>
 
-    <label for="classmateUrl">Classmate API Base URL</label>
-    <input
-        type="url"
-        id="classmateUrl"
-        placeholder="https://your-classmate.onrender.com"
-    >
+        <div id="skillsResult"></div>
+    </section>
 
-    <button class="full" id="classmateButton"
-            onclick="loadClassmateRecords()">
-        Load Classmate's Records
-    </button>
+    <hr>
 
-    <div id="classmateMessage" class="message" aria-live="polite">
-        Enter the API URL to retrieve records.
-    </div>
+    <!-- GREETING -->
+    <section>
+        <h2>Greeting API</h2>
 
-    <div class="table-wrapper">
-        <table>
-            <thead>
-                <tr>
-                    <th>Student ID</th>
-                    <th>Name</th>
-                    <th>Program</th>
-                    <th>Year</th>
-                    <th>Section</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="classmateList">
-                <tr>
-                    <td colspan="6" class="empty">No records loaded.</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        <input id="nameInput" type="text" placeholder="Enter your first name">
 
-    <div id="classmateDetails"></div>
-</section>
+        <button class="full" id="helloButton" onclick="sayHello()">
+            Say Hello
+        </button>
 
-<footer>
-    Student API Interface | Flask, SQLite and Cross-System Data Retrieval
-</footer>
+        <div id="helloResult"></div>
+    </section>
+
+    <hr>
+
+    <!-- LOCAL DATABASE -->
+    <section>
+        <div class="form-box">
+            <h2 id="formTitle">Add New Student</h2>
+
+            <form id="studentForm">
+                <div class="form-grid">
+
+                    <div>
+                        <label for="sid">Student ID</label>
+                        <input id="sid" required placeholder="e.g. 24-00300">
+                    </div>
+
+                    <div>
+                        <label for="sname">Full Name</label>
+                        <input id="sname" required placeholder="Full name">
+                    </div>
+
+                    <div>
+                        <label for="program">Program</label>
+                        <input id="program" required placeholder="e.g. BSIT">
+                    </div>
+
+                    <div>
+                        <label for="year">Year Level</label>
+                        <select id="year" required>
+                            <option value="">Select year</option>
+                            <option value="1">1st Year</option>
+                            <option value="2">2nd Year</option>
+                            <option value="3">3rd Year</option>
+                            <option value="4">4th Year</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="section">Section</label>
+                        <input id="section" required placeholder="e.g. B">
+                    </div>
+
+                </div>
+
+                <button id="submitButton" type="submit">Add Student</button>
+
+                <button id="cancelButton" class="cancel" type="button" hidden>
+                    Cancel Edit
+                </button>
+            </form>
+
+            <div id="status" class="status" role="status"></div>
+        </div>
+
+        <div class="heading-row">
+            <h2>Students from Database</h2>
+
+            <button id="refreshButton" onclick="loadStudents()">
+                Load Students
+            </button>
+        </div>
+
+        <p>Manage student records stored in your SQLite database.</p>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Database ID</th>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Program</th>
+                        <th>Year</th>
+                        <th>Section</th>
+                        <th>Source</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="studentList">
+                    <tr>
+                        <td colspan="8" class="empty">Loading records...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="localDetails"></div>
+    </section>
+
+    <hr>
+
+    <!-- CLASSMATE RECORDS -->
+    <section>
+        <h2>Classmate's Records</h2>
+
+        <p>
+            Enter your classmate's deployed HTTPS API base URL to retrieve
+            their student records. You can view or import a selected record.
+        </p>
+
+        <label for="classmateUrl">Classmate API Base URL</label>
+
+        <input
+            type="url"
+            id="classmateUrl"
+            placeholder="https://your-classmate.onrender.com"
+        >
+
+        <button class="full" id="classmateButton" onclick="loadClassmateRecords()">
+            Load Classmate's Records
+        </button>
+
+        <button class="full" id="sendPracticeButton" onclick="sendPracticeRecord()">
+            Send Practice Record to Partner
+        </button>
+
+        <div id="classmateMessage" class="message" aria-live="polite">
+            Enter the API URL to retrieve records.
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Program</th>
+                        <th>Year</th>
+                        <th>Section</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="classmateList">
+                    <tr>
+                        <td colspan="6" class="empty">No records loaded.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="classmateDetails"></div>
+    </section>
+
+    <hr>
+
+    <!-- PARTNER RECORDS -->
+    <section>
+        <h2>Partner Records</h2>
+
+        <p>
+            Retrieve student records automatically from Yvonne's deployed
+            Flask API. You can view the records or save them to your own database.
+        </p>
+
+        <button class="full" id="partnerButton" onclick="loadPartnerRecords()">
+            Load Partner Records
+        </button>
+
+        <div id="partnerMessage" class="message" aria-live="polite">
+            Click the button to retrieve partner records.
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Program</th>
+                        <th>Year</th>
+                        <th>Section</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="partnerList">
+                    <tr>
+                        <td colspan="6" class="empty">
+                            No partner records loaded.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="partnerDetails"></div>
+    </section>
+
+    <footer>
+        Student API Interface | Flask, SQLite and Cross-System Data Retrieval
+    </footer>
 
 </main>
 
 <script>
-// General helpers
+
+// ==========================================
+// GENERAL API REQUEST
+// ==========================================
+
 async function getJSON(url, options = {}) {
+
     const response = await fetch(url, options);
     const data = await response.json().catch(() => ({}));
 
@@ -401,70 +524,126 @@ async function getJSON(url, options = {}) {
     return data;
 }
 
+
+// ==========================================
+// DISPLAY CARD
+// ==========================================
+
 function showCard(container, label, value) {
+
     const div = document.createElement("div");
     div.className = "card";
 
     const strong = document.createElement("strong");
     strong.textContent = label + ": ";
 
-    div.append(strong, document.createTextNode(value ?? ""));
+    div.append(
+        strong,
+        document.createTextNode(value ?? "")
+    );
+
     container.appendChild(div);
 }
 
+
+// ==========================================
+// ERROR DISPLAY
+// ==========================================
+
 function showError(container, message) {
+
     container.replaceChildren();
+
     const div = document.createElement("div");
     div.className = "error";
     div.textContent = message;
+
     container.appendChild(div);
 }
 
-// Sample student
+
+// ==========================================
+// STUDENT INFORMATION
+// ==========================================
+
 async function loadStudent() {
+
     const button = document.getElementById("loadButton");
     const result = document.getElementById("studentResult");
+
     button.disabled = true;
+    result.textContent = "Loading student information...";
 
     try {
+
         const data = await getJSON("/student");
+
         result.replaceChildren();
 
-        for (const [label, value] of [
+        [
             ["Student ID", data.student_id],
             ["Name", data.name],
             ["Program", data.program],
             ["Year", data.year],
             ["Section", data.section]
-        ]) {
+        ].forEach(([label, value]) => {
             showCard(result, label, value);
-        }
+        });
+
     } catch (error) {
-        showError(result, "Unable to load student information.");
+
+        showError(result, error.message);
+
     } finally {
+
         button.disabled = false;
     }
 }
 
-// Skills
+
+// ==========================================
+// SKILLS
+// ==========================================
+
 async function loadSkills() {
+
     const button = document.getElementById("skillsButton");
     const result = document.getElementById("skillsResult");
+
     button.disabled = true;
+    result.textContent = "Loading skills...";
 
     try {
+
         const data = await getJSON("/skills");
+
+        if (!Array.isArray(data.skills)) {
+            throw new Error("Invalid skills response.");
+        }
+
         result.replaceChildren();
-        data.skills.forEach(skill => showCard(result, "Skill", skill));
+
+        data.skills.forEach(skill => {
+            showCard(result, "Skill", skill);
+        });
+
     } catch (error) {
-        showError(result, "Unable to load skills.");
+
+        showError(result, error.message);
+
     } finally {
+
         button.disabled = false;
     }
 }
 
-// Greeting
+
+// ==========================================
+// GREETING
+// ==========================================
+
 async function sayHello() {
+
     const button = document.getElementById("helloButton");
     const result = document.getElementById("helloResult");
     const name = document.getElementById("nameInput").value.trim();
@@ -472,32 +651,48 @@ async function sayHello() {
     button.disabled = true;
 
     try {
+
         const data = await getJSON(
             "/hello?name=" + encodeURIComponent(name || "Student")
         );
+
         result.replaceChildren();
         showCard(result, "Greeting", data.message);
+
     } catch (error) {
-        showError(result, "Unable to send greeting.");
+
+        showError(result, error.message);
+
     } finally {
+
         button.disabled = false;
     }
 }
 
-// Your own database CRUD
+
+// ==========================================
+// DATABASE CONFIGURATION
+// ==========================================
+
 const API = "/api/students";
+
 const form = document.getElementById("studentForm");
 const studentList = document.getElementById("studentList");
 const statusBox = document.getElementById("status");
+
 let editingId = null;
 
+
 function showStatus(message, error = false) {
+
     statusBox.textContent = message;
     statusBox.className = error ? "status error" : "status";
     statusBox.style.display = "block";
 }
 
+
 async function apiRequest(url, options = {}) {
+
     return getJSON(url, {
         ...options,
         headers: {
@@ -507,29 +702,52 @@ async function apiRequest(url, options = {}) {
     });
 }
 
+
 function addCell(row, value) {
+
     const cell = document.createElement("td");
     cell.textContent = value ?? "";
+
     row.appendChild(cell);
 }
 
+
+// ==========================================
+// LOAD LOCAL STUDENTS
+// ==========================================
+
 async function loadStudents() {
+
     const button = document.getElementById("refreshButton");
+
     button.disabled = true;
-    studentList.innerHTML =
-        '<tr><td colspan="7" class="empty">Loading records...</td></tr>';
+    studentList.replaceChildren();
 
     try {
-        const students = await apiRequest(API);
-        studentList.replaceChildren();
 
-        if (!students.length) {
-            studentList.innerHTML =
-                '<tr><td colspan="7" class="empty">No student records found.</td></tr>';
+        const students = await apiRequest(API);
+
+        if (!Array.isArray(students)) {
+            throw new Error("Invalid database response.");
+        }
+
+        if (students.length === 0) {
+
+            const row = document.createElement("tr");
+            const cell = document.createElement("td");
+
+            cell.colSpan = 8;
+            cell.className = "empty";
+            cell.textContent = "No student records found.";
+
+            row.appendChild(cell);
+            studentList.appendChild(row);
+
             return;
         }
 
         students.forEach(student => {
+
             const row = document.createElement("tr");
 
             [
@@ -538,11 +756,16 @@ async function loadStudents() {
                 student.name,
                 student.program,
                 student.year,
-                student.section
+                student.section,
+                student.source || "Local"
             ].forEach(value => addCell(row, value));
 
             const actions = document.createElement("td");
             actions.className = "actions";
+
+            const view = document.createElement("button");
+            view.textContent = "View";
+            view.onclick = () => viewStudentDetails(student);
 
             const edit = document.createElement("button");
             edit.textContent = "Edit";
@@ -553,20 +776,55 @@ async function loadStudents() {
             del.className = "delete";
             del.onclick = () => deleteStudent(student.id);
 
-            actions.append(edit, del);
+            actions.append(view, edit, del);
+
             row.appendChild(actions);
             studentList.appendChild(row);
         });
+
     } catch (error) {
-        studentList.innerHTML =
-            '<tr><td colspan="7" class="empty">Unable to retrieve student records. Check Flask and your database.</td></tr>';
+
+        studentList.replaceChildren();
+
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+
+        cell.colSpan = 8;
+        cell.className = "empty";
+        cell.textContent = error.message;
+
+        row.appendChild(cell);
+        studentList.appendChild(row);
+
         showStatus(error.message, true);
+
     } finally {
+
         button.disabled = false;
     }
 }
 
+
+// ==========================================
+// VIEW LOCAL STUDENT
+// ==========================================
+
+function viewStudentDetails(student) {
+
+    displayDetails(
+        student,
+        "localDetails",
+        "Selected Student Record"
+    );
+}
+
+
+// ==========================================
+// ADD / UPDATE STUDENT
+// ==========================================
+
 form.addEventListener("submit", async event => {
+
     event.preventDefault();
 
     const submit = document.getElementById("submitButton");
@@ -581,30 +839,50 @@ form.addEventListener("submit", async event => {
     };
 
     try {
+
         if (editingId !== null) {
+
             await apiRequest(`${API}/${editingId}`, {
                 method: "PUT",
                 body: JSON.stringify(student)
             });
-            showStatus("Student updated successfully.");
+
+            showStatus("Student updated successfully!");
+
         } else {
+
+            // Explicitly label manually added records as Local.
             await apiRequest(API, {
                 method: "POST",
-                body: JSON.stringify(student)
+                body: JSON.stringify({
+                    ...student,
+                    source: "Local"
+                })
             });
-            showStatus("Student added successfully.");
+
+            showStatus("Student added successfully!");
         }
 
         resetForm();
         await loadStudents();
+
     } catch (error) {
+
         showStatus(error.message, true);
+
     } finally {
+
         submit.disabled = false;
     }
 });
 
+
+// ==========================================
+// EDIT STUDENT
+// ==========================================
+
 function editStudent(student) {
+
     editingId = student.id;
 
     document.getElementById("sid").value = student.student_id ?? "";
@@ -623,40 +901,200 @@ function editStudent(student) {
     });
 }
 
+
+// ==========================================
+// DELETE STUDENT
+// ==========================================
+
 async function deleteStudent(id) {
-    if (!confirm("Are you sure you want to delete this student?")) return;
+
+    if (!confirm("Are you sure you want to delete this student?")) {
+        return;
+    }
 
     try {
-        await apiRequest(`${API}/${id}`, { method: "DELETE" });
 
-        if (String(editingId) === String(id)) resetForm();
+        await apiRequest(`${API}/${id}`, {
+            method: "DELETE"
+        });
 
-        showStatus("Student deleted successfully.");
+        if (String(editingId) === String(id)) {
+            resetForm();
+        }
+
+        document.getElementById("localDetails").replaceChildren();
+
+        showStatus("Student deleted successfully!");
+
         await loadStudents();
+
     } catch (error) {
+
         showStatus(error.message, true);
     }
 }
 
+
+// ==========================================
+// RESET FORM
+// ==========================================
+
 function resetForm() {
+
     form.reset();
     editingId = null;
+
     document.getElementById("formTitle").textContent = "Add New Student";
     document.getElementById("submitButton").textContent = "Add Student";
     document.getElementById("cancelButton").hidden = true;
 }
 
-document.getElementById("cancelButton").addEventListener("click", resetForm);
 
-// Classmate API: read-only retrieval through your Flask proxy
+document.getElementById("cancelButton")
+    .addEventListener("click", resetForm);
+
+
+// ==========================================
+// DISPLAY STUDENT DETAILS
+// ==========================================
+
+function displayDetails(student, targetId, titleText) {
+
+    const target = document.getElementById(targetId);
+    target.replaceChildren();
+
+    const card = document.createElement("div");
+    card.className = "details-card";
+
+    const heading = document.createElement("h3");
+    heading.textContent = "🎓 " + titleText;
+
+    card.appendChild(heading);
+
+    const subtitle = document.createElement("p");
+    subtitle.textContent = "Student information and academic details";
+
+    card.appendChild(subtitle);
+
+    const grid = document.createElement("div");
+    grid.className = "details-grid";
+
+    const fields = [
+        ["Database ID", student.id],
+        ["Student ID", student.student_id],
+        ["Full Name", student.name],
+        ["Program", student.program],
+        ["Year Level", student.year],
+        ["Section", student.section],
+        ["Source", student.source]
+    ];
+
+    fields.forEach(([label, value]) => {
+
+        if (value === undefined || value === null) {
+            return;
+        }
+
+        const item = document.createElement("div");
+        item.className = "detail-item";
+
+        const fieldLabel = document.createElement("span");
+        fieldLabel.className = "detail-label";
+        fieldLabel.textContent = label;
+
+        const fieldValue = document.createElement("span");
+        fieldValue.className = "detail-value";
+        fieldValue.textContent = String(value);
+
+        item.append(fieldLabel, fieldValue);
+        grid.appendChild(item);
+    });
+
+    card.appendChild(grid);
+
+    const closeButton = document.createElement("button");
+    closeButton.textContent = "Close Details";
+    closeButton.onclick = () => target.replaceChildren();
+
+    card.appendChild(closeButton);
+    target.appendChild(card);
+
+    card.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
+
+
+// ==========================================
+// IMPORT SELECTED CLASSMATE RECORD
+// POST /import-student
+// ==========================================
+
+async function importSelectedStudent(student, button) {
+
+    if (
+        !student.student_id ||
+        !student.name ||
+        !student.program ||
+        student.year === undefined ||
+        student.year === null ||
+        !student.section
+    ) {
+        alert("This record is missing one or more required student fields.");
+        return;
+    }
+
+    if (!confirm("Save " + student.name + " to your own database?")) {
+        return;
+    }
+
+    const originalText = button.textContent;
+
+    button.disabled = true;
+    button.textContent = "Saving...";
+
+    try {
+
+        const result = await apiRequest("/import-student", {
+            method: "POST",
+            body: JSON.stringify({
+                student_id: student.student_id,
+                name: student.name,
+                program: student.program,
+                year: student.year,
+                section: student.section
+            })
+        });
+
+        alert(result.message);
+
+        button.textContent = "Saved";
+        await loadStudents();
+
+    } catch (error) {
+
+        alert(error.message);
+
+        button.disabled = false;
+        button.textContent = originalText;
+    }
+}
+
+
+// ==========================================
+// CLASSMATE RECORDS
+// ==========================================
+
 async function loadClassmateRecords() {
-    const baseUrl = document.getElementById("classmateUrl")
-        .value.trim().replace(/\/+$/, "");
 
+    const input = document.getElementById("classmateUrl");
     const message = document.getElementById("classmateMessage");
     const list = document.getElementById("classmateList");
     const details = document.getElementById("classmateDetails");
     const button = document.getElementById("classmateButton");
+
+    const baseUrl = input.value.trim().replace(/\/+$/, "");
 
     if (!baseUrl) {
         message.textContent = "Please enter your classmate's API URL.";
@@ -664,6 +1102,7 @@ async function loadClassmateRecords() {
     }
 
     let parsed;
+
     try {
         parsed = new URL(baseUrl);
     } catch {
@@ -671,35 +1110,55 @@ async function loadClassmateRecords() {
         return;
     }
 
-    if (parsed.protocol !== "https:" || parsed.username || parsed.password) {
-        message.textContent = "Enter a valid HTTPS URL without credentials.";
+    if (
+        parsed.protocol !== "https:" ||
+        parsed.username ||
+        parsed.password ||
+        (parsed.port && parsed.port !== "443") ||
+        !["", "/"].includes(parsed.pathname) ||
+        parsed.search ||
+        parsed.hash
+    ) {
+        message.textContent =
+            "Enter a valid HTTPS base URL without credentials or extra paths.";
         return;
     }
 
     button.disabled = true;
     message.textContent = "Loading classmate's records...";
+
     list.replaceChildren();
     details.replaceChildren();
 
     try {
+
         const data = await getJSON(
             "/api/classmate?url=" + encodeURIComponent(baseUrl)
         );
 
-        const students = Array.isArray(data)
-            ? data
-            : data.students;
-
-        if (!Array.isArray(students)) {
-            throw new Error("The API did not return a student list.");
+        if (!Array.isArray(data)) {
+            throw new Error("Invalid classmate API response.");
         }
 
-        if (students.length === 0) {
+        if (data.length === 0) {
+
             message.textContent = "No classmate records found.";
+
+            const row = document.createElement("tr");
+            const cell = document.createElement("td");
+
+            cell.colSpan = 6;
+            cell.className = "empty";
+            cell.textContent = "No records found.";
+
+            row.appendChild(cell);
+            list.appendChild(row);
+
             return;
         }
 
-        students.forEach(student => {
+        data.forEach(student => {
+
             const row = document.createElement("tr");
 
             [
@@ -711,43 +1170,264 @@ async function loadClassmateRecords() {
             ].forEach(value => addCell(row, value));
 
             const action = document.createElement("td");
-            const view = document.createElement("button");
+            action.className = "actions";
 
+            const view = document.createElement("button");
             view.textContent = "View Details";
             view.onclick = () => viewClassmateDetails(student);
 
-            action.appendChild(view);
+            const save = document.createElement("button");
+            save.textContent = "Save to My Database";
+            save.onclick = () => importSelectedStudent(student, save);
+
+            action.append(view, save);
             row.appendChild(action);
             list.appendChild(row);
         });
 
         message.textContent =
-            "Loaded " + students.length + " classmate record(s).";
+            "Successfully loaded " + data.length + " classmate record(s).";
 
     } catch (error) {
-        message.textContent =
-            error.message || "Unable to load classmate records.";
+
+        message.textContent = error.message;
+
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+
+        cell.colSpan = 6;
+        cell.className = "empty";
+        cell.textContent = error.message;
+
+        row.appendChild(cell);
+        list.appendChild(row);
+
     } finally {
+
         button.disabled = false;
     }
 }
 
+
 function viewClassmateDetails(student) {
-    const details = document.getElementById("classmateDetails");
-    details.replaceChildren();
 
-    const heading = document.createElement("h3");
-    heading.textContent = "Selected Classmate Record";
-    details.appendChild(heading);
-
-    // Display the complete selected JSON record.
-    const pre = document.createElement("pre");
-    pre.textContent = JSON.stringify(student, null, 2);
-    details.appendChild(pre);
+    displayDetails(
+        student,
+        "classmateDetails",
+        "Selected Classmate Record"
+    );
 }
 
-// Initial load of your own database
-loadStudents();
+
+// ==========================================
+// STEP 9: SEND PRACTICE RECORD TO PARTNER
+// ==========================================
+
+async function sendPracticeRecord() {
+
+    const input = document.getElementById("classmateUrl");
+    const button = document.getElementById("sendPracticeButton");
+    const message = document.getElementById("classmateMessage");
+
+    const partnerUrl = input.value.trim().replace(/\/+$/, "");
+
+    if (!partnerUrl) {
+        message.textContent = "Please enter your classmate's API base URL first.";
+        return;
+    }
+
+    let parsed;
+
+    try {
+        parsed = new URL(partnerUrl);
+    } catch {
+        message.textContent = "Please enter a valid partner URL.";
+        return;
+    }
+
+    if (
+        parsed.protocol !== "https:" ||
+        parsed.username ||
+        parsed.password ||
+        (parsed.port && parsed.port !== "443") ||
+        !["", "/"].includes(parsed.pathname) ||
+        parsed.search ||
+        parsed.hash
+    ) {
+        message.textContent =
+            "Enter a valid HTTPS base URL without credentials or extra paths.";
+        return;
+    }
+
+    if (!confirm(
+        "Send the sample practice record EXT-001 to your classmate?"
+    )) {
+        return;
+    }
+
+    button.disabled = true;
+    button.textContent = "Sending Practice Record...";
+    message.textContent = "Sending record to your partner...";
+
+    try {
+
+        const result = await apiRequest("/send-practice-record", {
+            method: "POST",
+            body: JSON.stringify({
+                partner_url: partnerUrl
+            })
+        });
+
+        message.textContent =
+            result.message +
+            " Partner response status: " +
+            result.partner_status;
+
+        alert(
+            "Practice record sent successfully!\n\n" +
+            "Student ID: EXT-001\n" +
+            "Name: Sample Exchange Record\n" +
+            "Source: Partner API"
+        );
+
+    } catch (error) {
+
+        message.textContent = error.message;
+        alert(error.message);
+
+    } finally {
+
+        button.disabled = false;
+        button.textContent = "Send Practice Record to Partner";
+    }
+}
+
+
+// ==========================================
+// AUTOMATIC PARTNER RECORDS
+// ==========================================
+
+let partnerStudents = [];
+
+
+async function loadPartnerRecords() {
+
+    const button = document.getElementById("partnerButton");
+    const message = document.getElementById("partnerMessage");
+    const list = document.getElementById("partnerList");
+    const details = document.getElementById("partnerDetails");
+
+    button.disabled = true;
+    button.textContent = "Loading Partner Records...";
+    message.textContent = "Connecting to Yvonne's Flask API...";
+
+    list.replaceChildren();
+    details.replaceChildren();
+
+    try {
+
+        const result = await getJSON("/partner-records");
+
+        if (!Array.isArray(result.students)) {
+            throw new Error("Invalid partner records response.");
+        }
+
+        partnerStudents = result.students;
+
+        if (partnerStudents.length === 0) {
+
+            message.textContent = "No partner records found.";
+
+            const row = document.createElement("tr");
+            const cell = document.createElement("td");
+
+            cell.colSpan = 6;
+            cell.className = "empty";
+            cell.textContent = "No partner records available.";
+
+            row.appendChild(cell);
+            list.appendChild(row);
+
+            return;
+        }
+
+        partnerStudents.forEach(student => {
+
+            const row = document.createElement("tr");
+
+            [
+                student.student_id,
+                student.name,
+                student.program,
+                student.year,
+                student.section
+            ].forEach(value => addCell(row, value));
+
+            const actions = document.createElement("td");
+            actions.className = "actions";
+
+            const view = document.createElement("button");
+            view.textContent = "View Details";
+            view.onclick = () => viewPartnerDetails(student);
+
+            const save = document.createElement("button");
+            save.textContent = "Save to My Database";
+            save.onclick = () => importSelectedStudent(student, save);
+
+            actions.append(view, save);
+            row.appendChild(actions);
+            list.appendChild(row);
+        });
+
+        message.textContent =
+            result.message ||
+            `Successfully loaded ${partnerStudents.length} partner record(s).`;
+
+    } catch (error) {
+
+        message.textContent = error.message;
+
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+
+        cell.colSpan = 6;
+        cell.className = "empty";
+        cell.textContent = error.message;
+
+        row.appendChild(cell);
+        list.appendChild(row);
+
+    } finally {
+
+        button.disabled = false;
+        button.textContent = "Load Partner Records";
+    }
+}
+
+
+// ==========================================
+// VIEW PARTNER DETAILS
+// ==========================================
+
+function viewPartnerDetails(student) {
+
+    displayDetails(
+        student,
+        "partnerDetails",
+        "Selected Partner Student Record"
+    );
+}
+
+
+// ==========================================
+// INITIAL LOAD
+// ==========================================
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadStudents();
+});
+
 </script>
+
 </body>
 </html>
